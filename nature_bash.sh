@@ -33,7 +33,7 @@ declare -a months=(07 08)
 case $COMMAND in
 "clean_all")
     echo -e "Deleting all files."
-    rm datafile-*.txt $BKGFILE $CSVFILE $SAMPLE_FILE reading0*.csv *.bak *.csv.cut
+    rm datafile-*.txt $BKGFILE $CSVFILE $SAMPLE_FILE reading0?.csv *.bak *.csv.cut
     ;;
 
 "clean_tables")
