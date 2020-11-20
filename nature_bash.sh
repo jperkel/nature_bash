@@ -4,12 +4,13 @@ function usage() {
     echo -e "\nUsage: $(basename $0) [COMMAND]"
     echo -e "\tCOMMANDS:"
     echo -e "\t  clean_all        -- delete all created files"
-    echo -e "\t  clean_tables     -- delete data tables, backup & temp files"
-    echo -e "\t  clean_txtfiles   -- delete datafile-*.txt"
-    echo -e "\t  create_bad_names -- create badly named datafiles"
-    echo -e "\t  create_gene_data -- create dummy gene dataset"
-    echo -e "\t  create_raw_data  -- create dummy datatables"
+#    echo -e "\t  clean_tables     -- delete data tables, backup & temp files"
+#    echo -e "\t  clean_txtfiles   -- delete datafile-*.txt"
+#    echo -e "\t  create_bad_names -- create badly named datafiles"
+#    echo -e "\t  create_gene_data -- create dummy gene dataset"
+#    echo -e "\t  create_raw_data  -- create dummy datatables"
     echo -e "\t  gene_analysis    -- find most popular gene"
+    echo -e "\t  init             -- prepare all dummy files"
     echo -e "\t  help             -- show this message"
     echo -e "\t  fix_names        -- rename badly named datafiles"
     echo -e "\t  process_data     -- process data tables"
@@ -117,6 +118,12 @@ case $COMMAND in
 
 "help")
     usage
+    ;;
+
+"init")
+    $0 create_bad_names
+    $0 create_gene_data
+    $0 create_raw_data
     ;;
 
 "process_data")
