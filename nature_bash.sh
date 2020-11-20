@@ -7,7 +7,9 @@ function usage() {
     echo -e "\t  clean_tables     -- delete data tables, backup & temp files"
     echo -e "\t  clean_txtfiles   -- delete datafile-*.txt"
     echo -e "\t  create_bad_names -- create badly named datafiles"
+    echo -e "\t  create_gene_data -- create dummy gene dataset"
     echo -e "\t  create_raw_data  -- create dummy datatables"
+    echo -e "\t  gene_analysis    -- find most popular gene"
     echo -e "\t  help             -- show this message"
     echo -e "\t  fix_names        -- rename badly named datafiles"
     echo -e "\t  process_data     -- process data tables"
@@ -21,8 +23,10 @@ if [[ "$#" == 0 ]]; then
 fi
 
 COMMAND=$1
+
 BKGFILE=background.csv
 CSVFILE=datatable.csv
+GENEFILE=genedata.csv
 SAMPLE_FILE=samples.cut
 
 declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31)
@@ -33,7 +37,7 @@ declare -a months=(07 08)
 case $COMMAND in
 "clean_all")
     echo -e "Deleting all files."
-    rm datafile-*.txt $BKGFILE $CSVFILE $SAMPLE_FILE reading0?.csv *.bak *.csv.cut
+    rm datafile-*.txt $BKGFILE $CSVFILE $GENEFILE $SAMPLE_FILE reading0?.csv *.bak *.csv.cut
     ;;
 
 "clean_tables")
@@ -56,6 +60,14 @@ case $COMMAND in
             echo "File $fname created."
         done
     done
+    ;;
+
+"create_gene_data")
+    echo -e "\nCreating dummy gene expression data..."
+    echo "gene","count" > $GENEFILE
+    for i in {1..1000}; do
+        echo GENE_$(($RANDOM % 20 + 1)),$(($RANDOM * 10)) >> $GENEFILE
+    done 
     ;;
 
 "create_raw_data")
@@ -89,6 +101,18 @@ case $COMMAND in
         echo "Renaming $file to $newname."
         mv $file $newname
     done
+    ;;
+
+"gene_analysis")
+    # h/t Tom Ryder, https://sanctum.geek.nz/bash-quick-start-questionnaire.html
+    echo -e "\nFinding most common genes..."
+    cat $GENEFILE | cut -f1 -d, | sort | uniq -c | sort -k1,1nr | head
+    gene=$(cat $GENEFILE | cut -f1 -d, | sort | uniq -c | sort -k1,1nr | head -n1 | sed -e "s/^[[:space:]]*//" | cut -f2 -d' ')
+    count=$(cat $GENEFILE | cut -f1 -d, | sort | uniq -c | sort -k1,1nr | head -n1 | sed -e "s/^[[:space:]]*//" | cut -f1 -d' ')
+    echo -e "\nShowing 10 of $count readings for $gene..."
+    cat $GENEFILE | grep $gene | head -n10
+    avg=$(cat $GENEFILE | grep $gene | awk -F, '{ SUM = SUM + $2; COUNT = COUNT + 1 } END { print SUM/COUNT }')
+    echo -e "\nAverage reading: $avg"
     ;;
 
 "help")
