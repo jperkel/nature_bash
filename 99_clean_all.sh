@@ -20,5 +20,6 @@ echo -e "Deleting files."
 rm datafile-*.txt $BKGFILE $CSVFILE $GENEFILE $SAMPLE_FILE reading0?.csv *.bak *.csv.cut
 
 echo -e "Removing directory $NATUREDIR."
+# move up one directory level in order to delete $NATUREDIR.
 cd ..
 rmdir $NATUREDIR

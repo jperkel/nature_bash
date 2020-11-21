@@ -11,11 +11,14 @@ less $0
 
 read -p "Press enter to continue: " key 
 
-for f in $(ls [0-9]*.sh | sort); do 
+# iterate over a sorted list of files, ie 01_init.sh 02_fix_filenames.sh 03_process_data.sh ...
+for f in $(ls [0-9]?_*.sh | sort); do
+    # and run each file
     echo -e "\n\nRunning script $f..."
     read -p "Press enter to continue or 'x' to exit: " key 
     if [ "$key" == "x" ]; then
         exit 0
     fi 
+    # run the script 
     ./$f 
 done

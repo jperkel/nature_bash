@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# define filenames
 BKGFILE=background.csv
 GENEFILE=genedata.csv
 NATUREDIR=nature_bash
 
+# a list of days of the month
 declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31)
 # a list of months with 31 days 
-declare -a months=(07 08)
+declare -a months=(01 03 05 07 08 10 12)
 
 echo -e "\nThis script creates a working directory and files for our simulated data analyses."
 
@@ -28,6 +30,7 @@ read -p "Press enter to continue: " key
 for month in "${months[@]}"; do
     for day in "${days[@]}"; do 
         fname=datafile-$day-$month-2020.txt
+        # the 'touch' command creates an empty file
         touch $fname
         echo "File $fname created."
     done
@@ -35,7 +38,9 @@ done
 
 echo -e "\nCreating dummy gene expression data..."
 read -p "Press enter to continue: " key 
+# create a CSV with two columns, 'gene' and 'count'...
 echo "gene","count" > $GENEFILE
+# add 1000 mock gene readings
 for i in {1..1000}; do
     echo GENE_$(($RANDOM % 20 + 1)),$(($RANDOM * 10)) >> $GENEFILE
 done 
