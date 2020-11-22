@@ -6,9 +6,11 @@ NATUREDIR=nature_bash
 echo -e "\nWe have a simulated set of gene names and counts."
 echo -e "We'll use bash commands to identify the most common gene and compute the average count."
 
-read -p "Press enter to view the code: " key 
+if [[ ! $1 == "--nocode" ]]; then
+    read -p "Press enter to view the code: " key 
 
-less $0
+    less $0
+fi 
 
 read -p "Press enter to continue: " key 
 

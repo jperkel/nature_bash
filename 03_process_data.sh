@@ -8,9 +8,11 @@ SAMPLE_FILE=samples.cut
 echo -e "\nOne of our instruments has generated a series of datafiles, one file per experiment."
 echo -e "Here, we'll use bash commands to combine those files into one and process the data.\n"
 
-read -p "Let's view the code. Press enter to continue: " key 
+if [[ ! $1 == "--nocode" ]]; then
+    read -p "Let's view the code. Press enter to continue: " key 
 
-less $0
+    less $0
+fi 
 
 read -p "Press enter to continue: " key 
 
@@ -60,7 +62,7 @@ read -p "Press enter to continue: " key
 # Here we use the 'awk' command to 1) count the number of lines in the file, 2) sum the values in column 2 ($2),
 # and 3) calculate the average. We save that number in the variable $bkgd
 bkgd=$(cat $BKGFILE | awk -F, '{ SUM+=$2; COUNT+=1; } END { print SUM/COUNT; }' )
-echo -e "Average background reading: $bkgd\n"
+echo -e "\nAverage background reading: $bkgd\n"
 
 # Now we run awk multiple times to 1) add a column for the average of columns 3-5; 
 # 2) substract the average background calculated above, making a new column; and 

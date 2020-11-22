@@ -12,10 +12,12 @@ declare -a months=(01 03 05 07 08 10 12)
 
 echo -e "\nThis script creates a working directory and files for our simulated data analyses."
 
-echo -e "\nLet's check out the code. Remember use arrow keys to scroll, and 'q' to quit.\n" 
-read -p "Press enter to continue: " key 
+if [[ ! $1 == "--nocode" ]]; then
+    echo -e "\nLet's check out the code. Remember use arrow keys to scroll, and 'q' to quit.\n" 
+    read -p "Press enter to continue: " key 
 
-less $0
+    less $0
+fi 
 
 read -p "Press enter to continue: " key 
 
@@ -44,6 +46,7 @@ echo "gene","count" > $GENEFILE
 for i in {1..1000}; do
     echo GENE_$(($RANDOM % 20 + 1)),$(($RANDOM * 10)) >> $GENEFILE
 done 
+echo -e "File $GENEFILE created."
 
 echo -e "\nCreating background readings..."
 read -p "Press enter to continue: " key 
@@ -51,6 +54,7 @@ echo "sample","bkgd" > $BKGFILE
 for i in {1..50}; do            
     echo $i,$(($RANDOM / 100)) >> $BKGFILE
 done
+echo -e "File $BKGFILE created."
 
 echo -e "\nCreating data readings..."
 read -p "Press enter to continue: " key 

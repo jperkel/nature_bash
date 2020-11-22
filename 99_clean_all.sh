@@ -8,9 +8,11 @@ NATUREDIR=nature_bash
 
 echo -e "\nThis script deletes the working files and directory we created."
 
-read -p "Press enter to view the code: " key 
+if [[ ! $1 == "--nocode" ]]; then
+    read -p "Press enter to view the code: " key 
 
-less $0
+    less $0
+fi 
 
 read -p "Press enter to continue: " key 
 
