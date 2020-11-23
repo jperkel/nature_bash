@@ -1,10 +1,10 @@
 #!/bin/bash
 
-BKGFILE=background.csv
-CSVFILE=datatable.csv
-GENEFILE=genedata.csv
-SAMPLE_FILE=samples.cut
-NATUREDIR=nature_bash
+if [ -z "$NATUREDIR" ]; then
+    echo -e "\nRequired global variables not set."
+    echo -e "Execute ./runall.sh instead."
+    exit 0
+fi
 
 echo -e "\nThis script deletes the working files and directory we created."
 

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# define some variables that we'll need throughout these exercises
+export BKGFILE=background.csv
+export CSVFILE=datatable.csv
+export GENEFILE=genedata.csv
+export SAMPLE_FILE=samples.cut
+export NATUREDIR=nature_tmpdir
+
 echo -e "\nThis script uses a for loop to run all the files in our exercise one by one."
 echo -e "This way, we can add another file to the exercise, and it will still run in order."
 

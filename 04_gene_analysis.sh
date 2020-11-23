@@ -1,7 +1,10 @@
 #!/bin/bash
 
-GENEFILE=genedata.csv
-NATUREDIR=nature_bash
+if [ -z "$NATUREDIR" ]; then
+    echo -e "\nRequired global variables not set."
+    echo -e "Execute ./runall.sh instead."
+    exit 0
+fi
 
 echo -e "\nWe have a simulated set of gene names and counts."
 echo -e "We'll use bash commands to identify the most common gene and compute the average count."

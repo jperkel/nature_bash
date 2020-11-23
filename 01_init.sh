@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# define filenames
-BKGFILE=background.csv
-GENEFILE=genedata.csv
-NATUREDIR=nature_bash
+# check to ensure that required variables have been set.
+if [ -z "$NATUREDIR" ]; then
+    echo -e "\nRequired global variables not set."
+    echo -e "Execute ./runall.sh instead."
+    exit 0
+fi
 
 # a list of days of the month
 declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31)

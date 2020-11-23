@@ -1,6 +1,10 @@
 #!/bin/bash
 
-NATUREDIR=nature_bash
+if [ -z "$NATUREDIR" ]; then
+    echo -e "\nRequired global variables not set."
+    echo -e "Execute ./runall.sh instead."
+    exit 0
+fi
 
 echo -e "\nOops! We accidentally named some datafiles using the date-stamped format datafile-DD-MM-YYYY."
 echo -e "We'll use a for-loop and the 'sed' command to rename those files to YYYYMMDD format.\n"

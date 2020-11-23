@@ -1,9 +1,10 @@
 #!/bin/bash
 
-BKGFILE=background.csv
-CSVFILE=datatable.csv
-NATUREDIR=nature_bash
-SAMPLE_FILE=samples.cut
+if [ -z "$NATUREDIR" ]; then
+    echo -e "\nRequired global variables not set."
+    echo -e "Execute ./runall.sh instead."
+    exit 0
+fi
 
 echo -e "\nOne of our instruments has generated a series of datafiles, one file per experiment."
 echo -e "Here, we'll use bash commands to combine those files into one and process the data.\n"
