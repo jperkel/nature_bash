@@ -3,7 +3,7 @@
 # check to ensure that required variables have been set.
 if [ -z "$NATUREDIR" ]; then
     echo -e "\nRequired global variables not set."
-    echo -e "Execute ./runall.sh instead."
+    echo -e "Execute '. ./set_vars.sh' to set."
     exit 0
 fi
 
