@@ -2,7 +2,12 @@
 
 if [ -z "$NATUREDIR" ]; then
     echo -e "\nRequired global variables not set."
-    echo -e "Execute ./runall.sh instead."
+    echo -e "Execute '. ./set_vars.sh' to set."
+    exit 0
+fi
+
+if [ ! -d "$NATUREDIR" ]; then
+    echo -e "\nRequired set-up not performed. Run 01_init.sh first."
     exit 0
 fi
 
@@ -20,7 +25,7 @@ read -p "Press enter to continue: " key
 cd $NATUREDIR
 
 echo -e "\nBacking up raw data..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 # for each file whose name ends in '.csv', make a backup copy to '<filename>.csv.bak'
 for f in *.csv; do
     cp $f $f.bak
@@ -28,7 +33,7 @@ for f in *.csv; do
 done
 
 echo -e "\nExtracting sample numbers..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 # 'Pipe' the text of $BKGFILE to the 'cut' command and extract the first column of text (-f1)
 # CSV files separate fields using commas. We let cut know that this is a CSV file using the 'delimiter' flag ('-d,')
 # copy the resulting text to $SAMPLE_FILE
@@ -36,7 +41,7 @@ cat $BKGFILE | cut -f1 -d, > $SAMPLE_FILE
 echo -e "Created $SAMPLE_FILE"
 
 echo -e "\nExtracting data columns..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 # As above, we use cut to extract the second field from each CSV file and save as <filename>.cut
 for f in *.csv; do 
     cat $f | cut -f2 -d, > $f.cut
@@ -44,14 +49,14 @@ for f in *.csv; do
 done
 
 echo -e "\nLinking columns into a CSV..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 # The 'paste' command links columns into tables. We use the delimiter flag (-d ',') to indicate we want to produce a CSV.
 # Save the table to $CSVFILE
 paste -d ',' $SAMPLE_FILE background.csv.cut reading01.csv.cut reading02.csv.cut reading03.csv.cut > $CSVFILE
 echo -e "Created $CSVFILE"
 
 echo -e "\nShowing the first 10 rows of $CSVFILE..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 # The 'head' command shows the first few lines of a longer file. In this case, the first 11 lines
 # 'column' formats the table for viewing. The '-s,' flag indicates we are viewing a CSV file
 cat $CSVFILE | head -n 11 | column -tx -s,

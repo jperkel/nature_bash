@@ -2,7 +2,12 @@
 
 if [ -z "$NATUREDIR" ]; then
     echo -e "\nRequired global variables not set."
-    echo -e "Execute ./runall.sh instead."
+    echo -e "Execute '. ./set_vars.sh' to set."
+    exit 0
+fi
+
+if [ ! -d "$NATUREDIR" ]; then
+    echo -e "\nRequired set-up not performed. Run 01_init.sh first."
     exit 0
 fi
 
@@ -21,7 +26,7 @@ cd $NATUREDIR
 
 # h/t Tom Ryder, https://sanctum.geek.nz/bash-quick-start-questionnaire.html
 echo -e "\nFinding most common genes..."
-read -p "Press enter to continue: " key 
+# read -p "Press enter to continue: " key 
 
 # read $GENEFILE, grab field 1 (the gene name) with cut, sort alphabetically, 
 # count the number of times each name appears (uniq -c), sort the resulting list from highest to lowest number,
@@ -35,8 +40,8 @@ count=$(cat $GENEFILE | cut -f1 -d, | sort | uniq -c | sort -k1,1nr | head -n1 |
 echo -e "\nShowing 10 of $count readings for $gene..."
 read -p "Press enter to continue: " key 
 # We use 'grep', the 'general regular expression parser' to select lines in $GENEFILE that contain our gene name
-cat $GENEFILE | grep $gene | head -n10
+cat $GENEFILE | grep -E "^$gene," | head -n10
 
 # From $GENEFILE, select rows containing $gene, and use awk to calculate the average count value in col2 of the file
-avg=$(cat $GENEFILE | grep $gene | awk -F, '{ SUM = SUM + $2; COUNT = COUNT + 1 } END { print SUM/COUNT }')
+avg=$(cat $GENEFILE | grep -E "^$gene," | awk -F, '{ SUM = SUM + $2; COUNT = COUNT + 1 } END { print SUM/COUNT }')
 echo -e "\nAverage reading: $avg"

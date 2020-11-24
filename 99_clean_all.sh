@@ -2,7 +2,12 @@
 
 if [ -z "$NATUREDIR" ]; then
     echo -e "\nRequired global variables not set."
-    echo -e "Execute ./runall.sh instead."
+    echo -e "Execute '. ./set_vars.sh' to set."
+    exit 0
+fi
+
+if [ ! -d "$NATUREDIR" ]; then
+    echo -e "\nRequired set-up not performed. Run 01_init.sh first."
     exit 0
 fi
 
