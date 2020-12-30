@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# check to ensure that required variables have been set.
-if [ -z "$NATUREDIR" ]; then
-    echo -e "\nRequired global variables not set."
-    echo -e "Execute '. ./set_vars.sh' to set."
-    exit 0
-fi
+NATUREDIR=nature_tmpdir
+BKGFILE=background.csv
 
 # a list of days of the month
 declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31)
@@ -14,17 +10,10 @@ declare -a months=(01 03 05 07 08 10 12)
 
 echo -e "\nThis script creates a working directory and files for our simulated data analyses."
 
-if [[ ! $1 == "--nocode" ]]; then
-    echo -e "\nLet's check out the code. Remember use arrow keys to scroll, and 'q' to quit.\n" 
-    read -p "Press enter to continue: " key 
-
-    less $0
+if [ ! -d "$NATUREDIR" ]; then
+    echo -e "\nCreating working directory $NATUREDIR..."
+    mkdir $NATUREDIR
 fi 
-
-read -p "Press enter to continue: " key 
-
-echo -e "\nCreating working directory $NATUREDIR..."
-mkdir $NATUREDIR
 cd $NATUREDIR
 
 # create a set of files with nonstandard date stamps
@@ -37,14 +26,6 @@ for month in "${months[@]}"; do
         # echo "File $fname created."
     done
 done
-
-# create a CSV with two columns, 'gene' and 'count'...
-echo -e "Creating dummy gene expression data..."
-echo "gene","count" > $GENEFILE
-# add 1000 mock gene readings
-for i in {1..1000}; do
-    echo GENE_$(($RANDOM % 20 + 1)),$(($RANDOM * 10)) >> $GENEFILE
-done 
 
 echo -e "Creating dummy absorbance data..."
 echo "sample","bkgd" > $BKGFILE

@@ -1,10 +1,6 @@
 #!/bin/bash
 
-if [ -z "$NATUREDIR" ]; then
-    echo -e "\nRequired global variables not set."
-    echo -e "Execute '. ./set_vars.sh' to set."
-    exit 0
-fi
+NATUREDIR=nature_tmpdir
 
 if [ ! -d "$NATUREDIR" ]; then
     echo -e "\nRequired set-up not performed. Run 01_init.sh first."
@@ -13,14 +9,6 @@ fi
 
 echo -e "\nOops! We accidentally named some datafiles using the date-stamped format datafile-DD-MM-YYYY."
 echo -e "We'll use a for-loop and the 'sed' command to rename those files to YYYYMMDD format.\n"
-
-if [[ ! $1 == "--nocode" ]]; then
-    read -p "First, we'll view the code. Press enter to continue: " key 
-
-    less $0
-fi 
-
-read -p "Press enter to continue: " key 
 
 # change to our working directory, $NATUREDIR
 cd $NATUREDIR
