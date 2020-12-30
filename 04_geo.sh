@@ -2,7 +2,7 @@
 
 NATUREDIR=nature_tmpdir
 GEOFILE=GEOdataset.csv
-GEOARCHIVE=$GEOFILE".gz"
+GEOARCHIVE=$GEOFILE.gz
 URL=https://ftp.ncbi.nlm.nih.gov/geo/series/GSE161nnn/GSE161941/suppl/GSE161941_Processed_File-CBCB.csv.gz
 HASH="4efe06f7b8b83269630188bb9c80d2f86548769b"
 
@@ -49,8 +49,9 @@ fi
 result=$(cat $GEOFILE | cut -f1 | sed -E 's/\"//' | grep $gene)
 
 if [[ -z $result ]]; then
-    echo -e "Gene '$gene' not found."
+    echo -e "\nGene '$gene' not found."
 else
+    echo ""
     # print the column heading and all rows that contain 'gene', cols 1-7.
     cat $GEOFILE | sed -E 's/\"//g' | awk -v gene="$gene" '{ if ($1 ~ gene || NR==1) print $0 }' | cut -f1-7
 fi

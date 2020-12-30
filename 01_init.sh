@@ -27,9 +27,10 @@ for month in "${months[@]}"; do
 done
 
 echo -e "Creating dummy absorbance data..."
-echo "sample","bkgd" > $BKGFILE
-for i in {1..50}; do            
-    echo $i,$(($RANDOM / 100)) >> $BKGFILE
+echo "sample","bkgd" > background.csv
+for i in {1..50}; do   
+    # create a bunch of random numbers...         
+    echo $i,$(($RANDOM / 100)) >> background.csv
 done
 
 for i in 01 02 03; do
@@ -43,5 +44,4 @@ done
 # 'pipe' the file listing command (ls) through 'wc' (word count) to count the number of files
 # use sed (stream editor) to remove leading whitespace from the file count
 echo -e "\nCreated $(ls | wc -l | sed -E 's/^[[:space:]]*//g') files."
-read -p "Press enter to view the file listing, and 'q' when done:" key 
-ls | less
+echo -e "To view them, execute the file-list command, 'ls nature_tmpdir | less'."

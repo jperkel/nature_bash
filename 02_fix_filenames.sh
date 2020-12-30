@@ -2,18 +2,19 @@
 
 NATUREDIR=nature_tmpdir
 
+# test that the $NATUREDIR directory exists.
 if [ ! -d "$NATUREDIR" ]; then
     echo -e "\nRequired set-up not performed. Run 01_init.sh first."
     exit 0
 fi
 
-echo -e "\nOops! We accidentally named some datafiles using the date-stamped format datafile-DD-MM-YYYY."
-echo -e "We'll use a for-loop and the 'sed' command to rename those files to YYYYMMDD format.\n"
+echo -e "\nOops! We accidentally named some datafiles using the date-stamped format datafile-DD-MM-YYYY.txt."
+echo -e "We'll use a for-loop and the 'sed' command to rename those files using the YYYYMMDD standard.\n"
 
 # change to our working directory, $NATUREDIR
 cd $NATUREDIR
 
-# for each file whose name matches 'datafile*.txt'...
+# for each file in the directory whose name begins with 'datafile' and ends with '.txt'...
 for file in datafile*.txt; do
     # use the sed (stream editor) command to extract and rearrange the DD, MM and YYYY components
     # the old files are formatted DD-MM-YYYY. So we capture each element and reorder them: \3\2\1
