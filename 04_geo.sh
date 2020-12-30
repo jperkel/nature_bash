@@ -4,6 +4,8 @@ NATUREDIR=nature_tmpdir
 GEOFILE=GEOdataset.csv
 GEOARCHIVE=$GEOFILE".gz"
 URL=https://ftp.ncbi.nlm.nih.gov/geo/series/GSE161nnn/GSE161941/suppl/GSE161941_Processed_File-CBCB.csv.gz
+HASH="4efe06f7b8b83269630188bb9c80d2f86548769b"
+
 
 if [ ! -d "$NATUREDIR" ]; then
     echo -e "\nRequired set-up not performed. Run 01_init.sh first."
@@ -28,12 +30,11 @@ gene=$1
 if [ ! -e $GEOFILE ]; then
     echo -e "Downloading gene expression dataset from GEO...\n"
     curl -o $GEOARCHIVE $URL 
-#    curl -o GEOdataset.csv.gz https://ftp.ncbi.nlm.nih.gov/geo/series/GSE161nnn/GSE161941/suppl/GSE161941_Processed_File-CBCB.csv.gz
 
     # use git hash-object to check the file is what we expect.
     # hash should equal: 4efe06f7b8b83269630188bb9c80d2f86548769b
     hash=$(git hash-object $GEOARCHIVE)
-    if [[ ! $hash == "4efe06f7b8b83269630188bb9c80d2f86548769b" ]]; then
+    if [[ ! $hash == $HASH ]]; then
         echo -e "File appears to be corrupt."
         exit 0
     fi 
@@ -41,7 +42,7 @@ if [ ! -e $GEOFILE ]; then
     # unzip the file
     gunzip -k $GEOARCHIVE
 else 
-    echo -e "Using cached gene expression data in file $filename...\n"
+    echo -e "Using cached gene expression data in file $GEOFILE...\n"
 fi
 
 # check for a given gene in the dataset

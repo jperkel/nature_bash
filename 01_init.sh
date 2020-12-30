@@ -23,7 +23,6 @@ for month in "${months[@]}"; do
         fname=datafile-$day-$month-2020.txt
         # the 'touch' command creates an empty file
         touch $fname
-        # echo "File $fname created."
     done
 done
 

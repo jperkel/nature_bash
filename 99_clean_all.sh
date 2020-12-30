@@ -24,3 +24,4 @@ echo -e "Removing directory $NATUREDIR."
 # move up one directory level in order to delete $NATUREDIR.
 cd ..
 rmdir $NATUREDIR
+echo -e "\nDone!"
