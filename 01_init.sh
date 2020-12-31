@@ -8,8 +8,6 @@ declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 
 # a list of months with 31 days 
 declare -a months=(01 03 05 07 08 10 12)
 
-echo -e "\nThis script creates a working directory and files for our simulated data analyses."
-
 if [ ! -d "$NATUREDIR" ]; then
     echo -e "\nCreating working directory $NATUREDIR..."
     mkdir $NATUREDIR

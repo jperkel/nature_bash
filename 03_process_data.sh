@@ -8,9 +8,6 @@ if [ ! -d "$NATUREDIR" ]; then
     exit 0
 fi
 
-echo -e "\nOne of our instruments has generated a series of datafiles, one file per experiment."
-echo -e "Here, we'll use shell commands to combine those files into one and process the data.\n"
-
 cd $NATUREDIR
 
 echo -e "\nBacking up raw data..."

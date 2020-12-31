@@ -8,9 +8,6 @@ if [ ! -d "$NATUREDIR" ]; then
     exit 0
 fi
 
-echo -e "\nOops! We accidentally named some datafiles using the date-stamped format datafile-DD-MM-YYYY.txt."
-echo -e "We'll use a for-loop and the 'sed' command to rename those files using the YYYYMMDD standard.\n"
-
 # change to our working directory, $NATUREDIR
 cd $NATUREDIR
 

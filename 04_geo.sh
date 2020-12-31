@@ -12,10 +12,6 @@ if [ ! -d "$NATUREDIR" ]; then
     exit 0
 fi
 
-echo -e "\nThis script downloads a dataset from the NCBI Gene Expression Omnibus and"
-echo -e "checks for the presence of a gene name given on the command line.\n"
-
-
 cd $NATUREDIR
 
 # a gene name must be supplied on the command line
