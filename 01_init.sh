@@ -3,8 +3,6 @@
 NATUREDIR=nature_tmpdir
 BKGFILE=background.csv
 
-# a list of days of the month
-declare -a days=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31)
 # a list of months with 31 days 
 declare -a months=(01 03 05 07 08 10 12)
 
@@ -15,11 +13,16 @@ fi
 cd $NATUREDIR
 
 # create a set of files with nonstandard date stamps
+# since we want a two-digit date, we create days 1-9 separately from 10-31
 echo -e "Creating dummy data files..."
 for month in "${months[@]}"; do
-    for day in "${days[@]}"; do 
-        fname=datafile-$day-$month-2020.txt
+    for day in {1..9}; do 
+        fname=datafile-0$day-$month-2020.txt
         # the 'touch' command creates an empty file
+        touch $fname
+    done
+    for day in {10..31}; do 
+        fname=datafile-$day-$month-2020.txt
         touch $fname
     done
 done
