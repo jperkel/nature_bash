@@ -1,7 +1,6 @@
 #!/bin/bash
 
 NATUREDIR=nature_tmpdir
-BKGFILE=background.csv
 
 # a list of months with 31 days 
 declare -a months=(01 03 05 07 08 10 12)
@@ -34,9 +33,9 @@ for i in {1..50}; do
     echo $i,$(($RANDOM / 100)) >> background.csv
 done
 
-for i in 01 02 03; do
-    fname=reading$i.csv
-    echo "sample","abs$i" > $fname 
+for i in {1..3}; do
+    fname=reading0$i.csv
+    echo "sample","abs0$i" > $fname 
     for j in {1..50}; do
         echo $j,$RANDOM >> $fname
     done
