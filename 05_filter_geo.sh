@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail 
 
 NATUREDIR=nature_tmpdir
 GEOFILE=GSE161941_Processed_File-CBCB.csv
