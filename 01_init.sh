@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This command makes the script safer by, eg, exiting on error
+# see https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -euo pipefail 
+
 NATUREDIR=nature_tmpdir
 
 # a list of months with 31 days 
@@ -12,16 +16,16 @@ fi
 cd $NATUREDIR
 
 # create a set of files with nonstandard date stamps
-# since we want a two-digit date, we create days 1-9 separately from 10-31
+# since we want a two-digit date, we add zeroes to 1-9
 echo -e "Creating dummy data files..."
 for month in "${months[@]}"; do
-    for day in {1..9}; do 
-        fname=datafile-0$day-$month-2020.txt
+    for day in {1..31}; do 
+        if [ "$day" -lt 10 ]; then
+            fname=datafile-0$day-$month-2020.txt
+        else 
+            fname=datafile-$day-$month-2020.txt    
+        fi 
         # the 'touch' command creates an empty file
-        touch $fname
-    done
-    for day in {10..31}; do 
-        fname=datafile-$day-$month-2020.txt
         touch $fname
     done
 done
