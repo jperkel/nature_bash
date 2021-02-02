@@ -49,7 +49,7 @@ read -p "Press enter to continue: " key
 # get the average background reading
 # Here we use the 'awk' command to 1) count the number of lines in the file, 2) sum the values in column 2 ($2),
 # and 3) calculate the average. We save that number in the variable $bkgd
-bkgd=$(cat background.csv | awk -F, '{ SUM+=$2; COUNT+=1; } END { print SUM/COUNT; }' )
+bkgd=$(cat background.csv | awk -F, '{ if (NR>1) { SUM+=$2; COUNT+=1; } } END { print SUM/COUNT }' )
 echo -e "\nAverage background reading: $bkgd\n"
 
 # Now we run awk multiple times to 1) add a column for the average of columns 3-5; 
