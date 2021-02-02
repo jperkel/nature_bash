@@ -18,8 +18,8 @@ To try them out:
 - [`05_filter_geo.sh`](https://github.com/jperkel/nature_bash/blob/main/05_filter_geo.sh): This script uses `sed` and `awk` to filter the GEO datafile from `04_geo.sh` for records with a p-value < 0.05 and an ensembl_gene_id value other than NA.
 - [`99_clean_all.sh`](https://github.com/jperkel/nature_bash/blob/main/99_clean_all.sh): Deletes all temporary files. 
 
-License
-(from [https://opensource.org/licenses/BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause) Copyright 2021 Jeffrey M. Perkel
+## License. 
+(from [https://opensource.org/licenses/BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)) Copyright 2021 Jeffrey M. Perkel
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
