@@ -17,8 +17,15 @@ fi
 if [[ "$answer" == "y" || "$answer" == "Y" ]]; then 
     cd $NATUREDIR
 
+    # we could make this simpler, but this construction allows the
+    # script to complete even if some files are missing, eg if one
+    # earlier script was not executed. 
     echo -e "Deleting files."
-    rm *.txt *.csv *.bak *.cut *.gz 
+    for file in *.txt *.csv *.bak *.cut *.gz; do 
+        if [[ -f $file ]]; then 
+            rm $file 
+        fi
+    done  
 
     echo -e "Removing directory $NATUREDIR."
     # move up one directory level in order to delete $NATUREDIR.
